@@ -21,3 +21,6 @@ ALTER TABLE `hopsworks`.`on_demand_feature_group`
     DROP FOREIGN KEY `on_demand_conn_fk`,
     DROP COLUMN `path`,
     DROP COLUMN `connector_id`;
+
+ALTER TABLE `hopsworks`.`cached_feature`
+    MODIFY COLUMN `type` VARCHAR(20000) COLLATE latin1_general_cs NULL;

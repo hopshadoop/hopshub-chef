@@ -1898,7 +1898,7 @@ CREATE TABLE `cached_feature` (
   `cached_feature_group_id` int(11) NULL,
   `stream_feature_group_id` int(11) NULL,
   `name` varchar(63) COLLATE latin1_general_cs NOT NULL,
-  `type` varchar(1000) COLLATE latin1_general_cs NULL,
+  `type` varchar(20000) COLLATE latin1_general_cs NULL,
   `partition_key` BOOLEAN NULL DEFAULT FALSE,
   `default_value` VARCHAR(400) NULL,
   `description` varchar(256) NULL DEFAULT '',
