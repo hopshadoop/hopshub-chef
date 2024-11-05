@@ -24,3 +24,6 @@ ALTER TABLE `hopsworks`.`on_demand_feature_group`
 
 ALTER TABLE `hopsworks`.`cached_feature`
     MODIFY COLUMN `type` VARCHAR(20000) COLLATE latin1_general_cs NULL;
+
+ALTER TABLE `hopsworks`.`schemas` DROP FOREIGN KEY project_idx_schemas;
+ALTER TABLE `hopsworks`.`schemas` MODIFY COLUMN `schema` TEXT CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL;
