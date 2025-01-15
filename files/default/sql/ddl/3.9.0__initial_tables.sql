@@ -1715,6 +1715,7 @@ CREATE TABLE IF NOT EXISTS `feature_store_s3_connector` (
                                                             `key_secret_uid`                      INT             DEFAULT NULL,
                                                             `key_secret_name`                     VARCHAR(200)    DEFAULT NULL,
                                                             `arguments`                            VARCHAR(2000)  DEFAULT NULL,
+                                                            `path`                              VARCHAR(500) DEFAULT '',
                                                             `region`                            VARCHAR(50)  DEFAULT NULL,
                                                             PRIMARY KEY (`id`),
                                                             KEY `fk_feature_store_s3_connector_1_idx` (`key_secret_uid`, `key_secret_name`),
