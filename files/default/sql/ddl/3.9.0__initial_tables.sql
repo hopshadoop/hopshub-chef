@@ -2034,6 +2034,7 @@ CREATE TABLE IF NOT EXISTS `job_alert` (
                                            `severity` varchar(45) NOT NULL,
                                            `receiver` int(11) NOT NULL,
                                            `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                           `threshold` INT UNSIGNED,
                                            PRIMARY KEY (`id`),
                                            UNIQUE KEY `unique_job_alert` (`job_id`,`status`),
                                            KEY `fk_job_alert_2_idx` (`job_id`),
@@ -2067,6 +2068,7 @@ CREATE TABLE IF NOT EXISTS `project_service_alert` (
                                                        `severity` varchar(45) COLLATE latin1_general_cs NOT NULL,
                                                        `receiver` int(11) NOT NULL,
                                                        `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                                       `threshold` INT UNSIGNED,
                                                        PRIMARY KEY (`id`),
                                                        UNIQUE KEY `unique_project_service_alert` (`project_id`,`status`),
                                                        KEY `fk_project_service_2_idx` (`project_id`),
@@ -2585,3 +2587,17 @@ CREATE TABLE IF NOT EXISTS `hopsworks`.`model_link` (
   CONSTRAINT `model_version_id_fkc` FOREIGN KEY (`model_version_id`) REFERENCES `hopsworks`.`model_version` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `training_dataset_parent_fkc` FOREIGN KEY (`parent_training_dataset_id`) REFERENCES `hopsworks`.`training_dataset` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=ndbcluster DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs;
+
+CREATE TABLE IF NOT EXISTS `hopsworks`.`triggered_alert`
+(
+    `id`                        INT AUTO_INCREMENT PRIMARY KEY,
+    `submission_time`           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `execution_id`              INT,
+    `job_alert_id`              INT,
+    `project_service_alert_id`  INT,
+    CONSTRAINT `execution_id_fk` FOREIGN KEY (`execution_id`) REFERENCES `hopsworks`.`executions` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+    CONSTRAINT `job_alert_id_fk` FOREIGN KEY (`job_alert_id`) REFERENCES `hopsworks`.`job_alert` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+    CONSTRAINT `project_service_alert_id_fk` FOREIGN KEY (`project_service_alert_id`) REFERENCES `hopsworks`.`project_service_alert` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE = ndbcluster
+  DEFAULT CHARSET = latin1
+  COLLATE = latin1_general_cs;
